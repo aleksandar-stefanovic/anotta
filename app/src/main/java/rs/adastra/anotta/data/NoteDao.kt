@@ -19,4 +19,8 @@ interface NoteDao {
 
     @Query("SELECT * FROM Note ORDER BY id ASC")
     fun getAllNotes(): LiveData<List<Note>>
+
+    @Query("DELETE FROM Note")
+    fun deleteAll()
+
 }

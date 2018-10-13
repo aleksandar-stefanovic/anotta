@@ -13,7 +13,7 @@ class NoteListAdapter(context: Context) : RecyclerView.Adapter<NoteListAdapter.V
 
     private val layoutInflater = LayoutInflater.from(context)
 
-    private var items: List<Note> = arrayListOf()
+    var items: List<Note> = arrayListOf()
         set(value) {
             field = value
             notifyDataSetChanged()

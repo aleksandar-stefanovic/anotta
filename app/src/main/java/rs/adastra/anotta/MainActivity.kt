@@ -1,5 +1,6 @@
 package rs.adastra.anotta
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -10,17 +11,31 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import rs.adastra.anotta.adapter.NoteListAdapter
+import rs.adastra.anotta.data.viewmodel.NoteViewModel
+import android.arch.lifecycle.ViewModelProviders
+import rs.adastra.anotta.data.Note
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        viewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
+
         val noteListAdapter = NoteListAdapter(this)
         recyclerview.adapter = noteListAdapter
         recyclerview.layoutManager = LinearLayoutManager(this)
+
+        viewModel.allNotes.observe(this, Observer<List<Note>> {
+            if (it != null) {
+                noteListAdapter.items = it
+            }
+        })
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
