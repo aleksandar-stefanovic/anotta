@@ -1,19 +1,19 @@
 package rs.adastra.anotta
 
-import androidx.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import rs.adastra.anotta.EditNoteActivity.Companion.EXTRA_REPLY
 import rs.adastra.anotta.adapter.NoteListAdapter
-import rs.adastra.anotta.data.viewmodel.NoteViewModel
-import androidx.lifecycle.ViewModelProviders
 import rs.adastra.anotta.data.Note
+import rs.adastra.anotta.data.viewmodel.NoteViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab.setOnClickListener {
+            val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
+            startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE)
         }
     }
 
@@ -56,5 +56,21 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            val extras = data?.extras
+            if (extras != null) {
+                val note = extras.get(EXTRA_REPLY) as Note
+                viewModel.insert(note)
+            }
+        }
+    }
+
+    companion object {
+        const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1
     }
 }
