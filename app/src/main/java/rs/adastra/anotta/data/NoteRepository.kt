@@ -17,6 +17,10 @@ class NoteRepository(application: Application) {
         UpdateAsyncTask(noteDao).execute(note)
     }
 
+    fun delete(note: Note) {
+        DeleteAsyncTask(noteDao).execute(note)
+    }
+
     companion object {
         // Android Studio recommends that AsyncTask should be a static class. I could have put it
         // outside of this class, but I chose to encapsulate it within the repository class.
@@ -29,6 +33,12 @@ class NoteRepository(application: Application) {
         private class UpdateAsyncTask(val noteDao: NoteDao) : AsyncTask<Note, Unit, Unit>() {
             override fun doInBackground(vararg params: Note) {
                 noteDao.update(params[0])
+            }
+        }
+
+        private class DeleteAsyncTask(val noteDao: NoteDao) : AsyncTask<Note, Unit, Unit>() {
+            override fun doInBackground(vararg params: Note) {
+                noteDao.delete(params[0])
             }
         }
     }

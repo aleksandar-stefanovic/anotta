@@ -26,10 +26,28 @@
         android:padding="8dp"
         tools:text="@string/lorem_ipsum" />
 
-    <Button
-        android:id="@+id/button_save"
+    <!-- TODO: Make an UI that is not horrid -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/action_save" />
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/action_save" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/action_delete" />
+
+    </LinearLayout>
 
 </LinearLayout>

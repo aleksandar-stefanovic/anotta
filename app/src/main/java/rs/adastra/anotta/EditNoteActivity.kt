@@ -7,7 +7,6 @@ import android.text.TextUtils
 import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_edit_note.*
-import rs.adastra.anotta.MainActivity.Companion.EXTRA_NOTE
 import rs.adastra.anotta.data.Note
 
 class EditNoteActivity : Activity() {
@@ -17,7 +16,7 @@ class EditNoteActivity : Activity() {
         setContentView(R.layout.activity_edit_note)
 
         // Checking whether there was a Note send by intent, otherwise using an empty Note
-        val note = intent?.extras?.get(EXTRA_NOTE) as Note? ?: Note()
+        val note = intent?.extras?.get(MainActivity.EXTRA_NOTE) as Note? ?: Note()
 
         edit_title.setText(note.title)
         edit_content.setText(note.content)
@@ -29,16 +28,25 @@ class EditNoteActivity : Activity() {
             } else {
                 note.title = edit_title.text?.toString() ?: ""
                 note.content = edit_content.text?.toString() ?: ""
-                replyIntent.putExtra(EXTRA_REPLY, note)
+                replyIntent.putExtra(EXTRA_NOTE, note)
                 setResult(RESULT_OK, replyIntent)
             }
 
             finish()
         }
+
+        button_delete.setOnClickListener {
+            val replyIntent = Intent()
+            replyIntent.putExtra(EXTRA_NOTE, note)
+            replyIntent.putExtra(EXTRA_DELETE, true)
+            setResult(RESULT_OK, replyIntent)
+            finish()
+        }
     }
 
     companion object {
-        const val EXTRA_REPLY = "rs.adastra.anotta.REPLY"
+        const val EXTRA_NOTE = "rs.adastra.anotta.REPLY"
+        const val EXTRA_DELETE = "rs.adastra.anotta.DELETE"
     }
 
     private fun TextView.isEmpty() = TextUtils.isEmpty(this.text)

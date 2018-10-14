@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import rs.adastra.anotta.EditNoteActivity.Companion.EXTRA_REPLY
+import rs.adastra.anotta.EditNoteActivity.Companion.EXTRA_DELETE
 import rs.adastra.anotta.adapter.NoteListAdapter
 import rs.adastra.anotta.data.Note
 import rs.adastra.anotta.data.viewmodel.NoteViewModel
@@ -71,14 +71,19 @@ class MainActivity : AppCompatActivity() {
             if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE) {
                 val extras = data?.extras
                 if (extras != null) {
-                    val note = extras.get(EXTRA_REPLY) as Note
+                    val note = extras.get(EditNoteActivity.EXTRA_NOTE) as Note
                     viewModel.insert(note)
                 }
             } else if (requestCode == EDIT_NOTE_ACTIVITY_REQUEST_CODE) {
                 val extras = data?.extras
                 if (extras != null) {
-                    val note = extras.get(EXTRA_REPLY) as Note
-                    viewModel.update(note)
+                    val note = extras.get(EditNoteActivity.EXTRA_NOTE) as Note
+
+                    if (extras.getBoolean(EXTRA_DELETE)) {
+                        viewModel.delete(note)
+                    } else {
+                        viewModel.update(note)
+                    }
                 }
             }
         }
