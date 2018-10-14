@@ -1,11 +1,9 @@
 package rs.adastra.anotta.data
 
-import androidx.sqlite.db.SupportSQLiteDatabase
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
-import android.os.AsyncTask
 
 
 @Database(entities = [Note::class], version = 1)
@@ -27,34 +25,11 @@ abstract class NoteDatabase : RoomDatabase() {
                             context.applicationContext,
                             NoteDatabase::class.java, "word_database"
                         )
-                            .addCallback(callback)
                             .build()
                     }
                 }
             }
             return INSTANCE!!
-        }
-
-        private val callback = object: RoomDatabase.Callback() {
-            override fun onOpen(db: SupportSQLiteDatabase) {
-                super.onOpen(db)
-                PopulateDbAsync(INSTANCE!!).execute()
-            }
-        }
-
-        class PopulateDbAsync(db: NoteDatabase): AsyncTask<Note, Unit, Unit>() {
-
-            private val dao = db.noteDao
-
-            override fun doInBackground(vararg params: Note) {
-                dao.deleteAll()
-                var note = Note(0, "This Is The Note Title", "Lorem ipsum dolor sit amet, id eam purto eius definitiones, persius probatus imperdiet sed ne. No cum assum mandamus splendide. Tantas persius diceret pri te. Qui alii erant semper cu. Sea lorem definitionem ut. His dictas option disputationi no, ex alterum voluptatum pri.")
-                dao.insert(note)
-                note = Note(1, "This Is Another Note Title", "This one is shorter.")
-                dao.insert(note)
-            }
-
-
         }
     }
 }
