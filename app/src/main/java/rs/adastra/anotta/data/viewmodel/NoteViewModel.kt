@@ -1,7 +1,7 @@
 package rs.adastra.anotta.data.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
+import androidx.lifecycle.AndroidViewModel
 import rs.adastra.anotta.data.Note
 import rs.adastra.anotta.data.NoteRepository
 

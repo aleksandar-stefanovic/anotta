@@ -1,7 +1,7 @@
 package rs.adastra.anotta.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import android.widget.TextView
 import rs.adastra.anotta.R
 import rs.adastra.anotta.data.Note
 
-class NoteListAdapter(context: Context) : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
+class NoteListAdapter(context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
 
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -32,7 +32,7 @@ class NoteListAdapter(context: Context) : RecyclerView.Adapter<NoteListAdapter.V
         holder.contentTextView.text = note.content
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         // This could possibly be enhanced by using delegated or synthetic properties
         val titleTextView: TextView = itemView.findViewById(R.id.title_textview)
         val contentTextView: TextView = itemView.findViewById(R.id.content_textview)
