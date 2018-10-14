@@ -14,4 +14,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         repository.insert(note)
     }
 
+    fun update(note: Note) {
+        repository.update(note)
+    }
+
 }

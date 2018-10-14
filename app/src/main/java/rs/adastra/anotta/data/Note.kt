@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 @Entity
 class Note(
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
-    var title: String,
-    var content: String) : Parcelable {
+    var id:Int = 0,
+    var title: String = "",
+    var content: String = "") : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

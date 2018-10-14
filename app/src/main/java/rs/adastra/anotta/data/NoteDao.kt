@@ -9,7 +9,6 @@ interface NoteDao {
     @Insert
     fun insert(note: Note)
 
-    @Suppress("unused")
     @Update
     fun update(note: Note)
 

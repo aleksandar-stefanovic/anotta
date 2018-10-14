@@ -40,6 +40,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
             startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE)
         }
+
+        noteListAdapter.onItemSelectedListener = { note ->
+            val intent = Intent(this@MainActivity, EditNoteActivity::class.java)
+            intent.putExtra(EXTRA_NOTE, note)
+            startActivityForResult(intent, EDIT_NOTE_ACTIVITY_REQUEST_CODE)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -61,16 +67,26 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            val extras = data?.extras
-            if (extras != null) {
-                val note = extras.get(EXTRA_REPLY) as Note
-                viewModel.insert(note)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE) {
+                val extras = data?.extras
+                if (extras != null) {
+                    val note = extras.get(EXTRA_REPLY) as Note
+                    viewModel.insert(note)
+                }
+            } else if (requestCode == EDIT_NOTE_ACTIVITY_REQUEST_CODE) {
+                val extras = data?.extras
+                if (extras != null) {
+                    val note = extras.get(EXTRA_REPLY) as Note
+                    viewModel.update(note)
+                }
             }
         }
     }
 
     companion object {
+        const val EXTRA_NOTE = "rs.adastra.anotta.EXTRA_NOTE"
         const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1
+        const val EDIT_NOTE_ACTIVITY_REQUEST_CODE = 2
     }
 }
