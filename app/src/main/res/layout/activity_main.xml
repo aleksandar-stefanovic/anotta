@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="?attr/colorPrimary"
-                android:fontFamily="@font/cabin"
+                android:fontFamily="@font/poppins_light"
                 android:text="@string/app_name"
                 android:textSize="24sp" />
 
