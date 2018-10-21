@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import rs.adastra.anotta.EditNoteActivity.Companion.EXTRA_DELETE
 import rs.adastra.anotta.adapter.NoteListAdapter
 import rs.adastra.anotta.data.Note
-import rs.adastra.anotta.data.viewmodel.NoteViewModel
+import rs.adastra.anotta.viewmodel.NoteViewModel
 
 
 class MainActivity : AppCompatActivity() {

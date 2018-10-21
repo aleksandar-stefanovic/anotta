@@ -1,4 +1,4 @@
-package rs.adastra.anotta.data.viewmodel
+package rs.adastra.anotta.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
